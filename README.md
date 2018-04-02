@@ -1,5 +1,7 @@
 # YandexDirect
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/4cdc27846467bc400f5a/maintainability)](https://codeclimate.com/github/radanisk/yandex_direct/maintainability)
+
 A Ruby interface to the Yandex Direct API.
 
 ## Installation
