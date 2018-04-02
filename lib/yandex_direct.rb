@@ -14,6 +14,7 @@ require 'yandex_direct/v5/dictionaries'
 require 'yandex_direct/v5/keywords'
 require 'yandex_direct/v5/sitelinks'
 require 'yandex_direct/v5/v_cards'
+require 'yandex_direct/v5/utils'
 require 'yandex_direct/version'
 
 module YandexDirect
@@ -28,7 +29,7 @@ module YandexDirect
     include YandexDirect::V5::VCards
 
     attr_accessor :token, :login, :test, :app_id
-    attr_reader :available_units
+    attr_reader :available_units, :limit_units
 
     def initialize(options = {})
       options.each do |key, value|

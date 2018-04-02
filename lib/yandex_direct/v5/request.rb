@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'yandex_direct/v5/response'
+
 module YandexDirect
   module V5
     class Request
@@ -17,7 +19,7 @@ module YandexDirect
         raise(YandexDirect::NotEnoughUnitsError) if response_body.key?('error') && response_body['error']['error_code'].to_i == 152
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
 
-        { result: response_body['result'], available_units: response['Units'].split('/')[1] }
+        Response.new(response_body)
       end
     end
   end

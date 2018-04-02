@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'yandex_direct/v5/utils'
+
 module YandexDirect
   module V5
     module VCards
@@ -7,18 +9,14 @@ module YandexDirect
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/vcards/add-docpage/
       def add_v_cards(params)
-        response = YandexDirect::V5::Request.new(self, @token, 'vcards', 'add', params).perform
-        @available_units = response[:available_units]
-        response[:result]
+        Utils.new.perform_request(self, @token, 'vcards', 'add', params)
       end
 
       # Returns the vCards that match the specified criteria
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/vcards/get-docpage/
       def v_cards(params)
-        response = YandexDirect::V5::Request.new(self, @token, 'vcards', 'get', params).perform
-        @available_units = response[:available_units]
-        response[:result]
+        Utils.new.perform_request(self, @token, 'vcards', 'get', params)
       end
     end
   end
