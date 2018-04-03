@@ -1,5 +1,7 @@
 # YandexDirect
 
+[![Gem Version](https://badge.fury.io/rb/yandex_direct.svg)](https://badge.fury.io/rb/yandex_direct)
+[![Build Status](https://travis-ci.org/radanisk/yandex_direct.svg?branch=master)](https://travis-ci.org/radanisk/yandex_direct)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4cdc27846467bc400f5a/maintainability)](https://codeclimate.com/github/radanisk/yandex_direct/maintainability)
 
 A Ruby interface to the Yandex Direct API.
