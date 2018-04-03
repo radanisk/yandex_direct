@@ -1,4 +1,4 @@
-# YandexDirect
+# The Yandex.Direct Ruby Gem
 
 [![Gem Version](https://badge.fury.io/rb/yandex_direct.svg)](https://badge.fury.io/rb/yandex_direct)
 [![Build Status](https://travis-ci.org/radanisk/yandex_direct.svg?branch=master)](https://travis-ci.org/radanisk/yandex_direct)
