@@ -3,9 +3,12 @@
 module YandexDirect
   module V5
     class Request
+      BASE_URL = 'https://api.direct.yandex.com/json/v5/'
+      SANDBOX_BASE_URL = 'https://api-sandbox.direct.yandex.com/json/v5/'
+
       def initialize(client, token, service_name, method, params)
         @payload = { method: method, params: params }
-        api_url = client.test ? 'https://api-sandbox.direct.yandex.com/json/v5/' : 'https://api.direct.yandex.com/json/v5/'
+        api_url = client.test ? SANDBOX_BASE_URL : BASE_URL
         @url = "#{api_url}#{service_name}"
         @token = token
       end
