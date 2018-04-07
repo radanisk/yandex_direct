@@ -10,5 +10,6 @@ gemspec
 group :test do
   gem 'rspec', '~> 3.7'
   gem 'rubocop', '~> 0.54.0'
+  gem 'simplecov', '~> 0.16.1'
   gem 'webmock', '~> 3.3'
 end
