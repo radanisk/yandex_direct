@@ -77,12 +77,6 @@ module YandexDirect
       request_live('GetBannersTags', param)
     end
 
-    def regions
-      request('GetRegions')['data'].map do |region_data|
-        YandexDirect::RegionInfo.new(region_data)
-      end
-    end
-
     def ping_api
       request('PingAPI')
     end
@@ -109,16 +103,6 @@ module YandexDirect
 
     def request_live(method, param = nil)
       request_v4(@url_live, method, param)
-    end
-  end
-
-  class RegionInfo
-    attr_reader :region_id, :parent_id, :region_name
-
-    def initialize(attrs)
-      @region_id   = attrs['RegionID']
-      @parent_id   = attrs['ParentID']
-      @region_name = attrs['RegionName']
     end
   end
 end
