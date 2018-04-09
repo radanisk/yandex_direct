@@ -21,6 +21,14 @@ RSpec.configure do |config|
   end
 end
 
+def a_post(path)
+  a_request(:post, URI.join(YandexDirect::V5::Request::SANDBOX_BASE_URL, path))
+end
+
+def stub_post(path)
+  stub_request(:post, URI.join(YandexDirect::V5::Request::SANDBOX_BASE_URL, path))
+end
+
 def fixture(file)
-  File.new(File.expand_path('fixtures', __dir__) + '/' + file)
+  File.new(File.join(File.expand_path('fixtures', __dir__), file))
 end

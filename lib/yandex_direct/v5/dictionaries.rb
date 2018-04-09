@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'yandex_direct/v5/geo_regions_item'
+require 'yandex_direct/geo_regions_item'
 
 module YandexDirect
   module V5
@@ -13,7 +13,7 @@ module YandexDirect
         response = YandexDirect::V5::Request.new(self, @token, 'dictionaries', 'get', params).perform
         if response[:result]['GeoRegions'].any?
           response[:result]['GeoRegions'].map! do |region_data|
-            GeoRegionsItem.new(region_data)
+            YandexDirect::GeoRegionsItem.new(region_data)
           end
         end
         response[:result]
