@@ -38,7 +38,6 @@ module YandexDirect
 
     def wordstat_report(param)
       result = request('GetWordstatReport', param)
-      raise(YandexDirect::BlankDataError, 'Blank data') if result['data'].empty?
 
       result
     end
