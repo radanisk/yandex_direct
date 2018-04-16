@@ -14,7 +14,7 @@ module YandexDirect
     include YandexDirect::V5::API
 
     attr_accessor :token, :login, :test, :app_id
-    attr_reader :available_units
+    attr_reader :available_units, :limit_units
 
     def initialize(options = {})
       options.each do |key, value|
@@ -38,7 +38,6 @@ module YandexDirect
 
     def wordstat_report(param)
       result = request('GetWordstatReport', param)
-      raise(YandexDirect::BlankDataError, 'Blank data') if result['data'].empty?
 
       result
     end

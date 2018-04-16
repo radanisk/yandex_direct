@@ -8,6 +8,7 @@ require 'yandex_direct/v5/dictionaries'
 require 'yandex_direct/v5/keywords'
 require 'yandex_direct/v5/sitelinks'
 require 'yandex_direct/v5/v_cards'
+require 'yandex_direct/v5/utils'
 
 module YandexDirect
   module V5
@@ -20,6 +21,7 @@ module YandexDirect
       include YandexDirect::V5::Keywords
       include YandexDirect::V5::Sitelinks
       include YandexDirect::V5::VCards
+      include YandexDirect::V5::Utils
     end
   end
 end
