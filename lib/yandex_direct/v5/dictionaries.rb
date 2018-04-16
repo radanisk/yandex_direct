@@ -14,12 +14,12 @@ module YandexDirect
       # @see https://tech.yandex.com/direct/doc/ref-v5/dictionaries/get-docpage/
       def dictionaries(params)
         response = perform_request(self, @token, 'dictionaries', 'get', params)
-        if response[:result]['GeoRegions'].any?
-          response[:result]['GeoRegions'].map! do |region_data|
+        if response['GeoRegions'].any?
+          response['GeoRegions'].map! do |region_data|
             YandexDirect::GeoRegionsItem.new(region_data)
           end
         end
-        response[:result]
+        response
       end
     end
   end
