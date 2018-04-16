@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'yandex_direct/geo_regions_item'
-require 'yandex_direct/utils'
+require 'yandex_direct/v5/utils'
 
 module YandexDirect
   module V5
