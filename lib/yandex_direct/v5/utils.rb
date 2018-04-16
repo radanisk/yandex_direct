@@ -2,7 +2,7 @@
 
 module YandexDirect
   module V5
-    class Utils
+    module Utils
       def initialize; end
 
       def perform_request(client, token, service_name, method, params)
