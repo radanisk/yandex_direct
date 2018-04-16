@@ -5,28 +5,13 @@ require 'yandex_direct/authorization_error'
 require 'yandex_direct/error'
 require 'yandex_direct/not_enough_units_error'
 require 'yandex_direct/blank_data_error'
+require 'yandex_direct/v5/api'
 require 'yandex_direct/v5/request'
-require 'yandex_direct/v5/ads'
-require 'yandex_direct/v5/ad_groups'
-require 'yandex_direct/v5/ad_images'
-require 'yandex_direct/v5/campaigns'
-require 'yandex_direct/v5/dictionaries'
-require 'yandex_direct/v5/keywords'
-require 'yandex_direct/v5/sitelinks'
-require 'yandex_direct/v5/v_cards'
-require 'yandex_direct/v5/utils'
 require 'yandex_direct/version'
 
 module YandexDirect
   class Client
-    include YandexDirect::V5::Ads
-    include YandexDirect::V5::AdGroups
-    include YandexDirect::V5::AdImages
-    include YandexDirect::V5::Campaigns
-    include YandexDirect::V5::Dictionaries
-    include YandexDirect::V5::Keywords
-    include YandexDirect::V5::Sitelinks
-    include YandexDirect::V5::VCards
+    include YandexDirect::V5::API
 
     attr_accessor :token, :login, :test, :app_id
     attr_reader :available_units, :limit_units
@@ -78,12 +63,6 @@ module YandexDirect
       request_live('GetBannersTags', param)
     end
 
-    def regions
-      request('GetRegions')['data'].map do |region_data|
-        YandexDirect::RegionInfo.new(region_data)
-      end
-    end
-
     def ping_api
       request('PingAPI')
     end
@@ -110,16 +89,6 @@ module YandexDirect
 
     def request_live(method, param = nil)
       request_v4(@url_live, method, param)
-    end
-  end
-
-  class RegionInfo
-    attr_reader :region_id, :parent_id, :region_name
-
-    def initialize(attrs)
-      @region_id   = attrs['RegionID']
-      @parent_id   = attrs['ParentID']
-      @region_name = attrs['RegionName']
     end
   end
 end

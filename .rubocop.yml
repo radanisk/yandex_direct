@@ -4,6 +4,10 @@ AllCops:
 Metrics/AbcSize:
   Max: 23
 
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+
 Metrics/LineLength:
   Max: 195
 

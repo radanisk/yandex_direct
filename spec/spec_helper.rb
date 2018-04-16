@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
 require 'bundler/setup'
+require 'webmock/rspec'
 require 'yandex_direct'
 
 RSpec.configure do |config|
@@ -13,4 +19,16 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+end
+
+def a_post(path)
+  a_request(:post, URI.join(YandexDirect::V5::Request::SANDBOX_BASE_URL, path))
+end
+
+def stub_post(path)
+  stub_request(:post, URI.join(YandexDirect::V5::Request::SANDBOX_BASE_URL, path))
+end
+
+def fixture(file)
+  File.new(File.join(File.expand_path('fixtures', __dir__), file))
 end
