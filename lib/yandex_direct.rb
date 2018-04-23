@@ -14,7 +14,7 @@ module YandexDirect
     include YandexDirect::V5::API
 
     attr_accessor :token, :login, :test, :app_id
-    attr_reader :available_units
+    attr_reader :available_units, :limit_units
 
     def initialize(options = {})
       options.each do |key, value|
