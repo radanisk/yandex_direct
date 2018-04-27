@@ -33,7 +33,7 @@ module YandexDirect
       private
 
       def error_key(response_body)
-        response_body['result'][@method.capitalize + 'Results'].present? && response_body['result'][@method.capitalize + 'Results'][0]['Errors'].present? && response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Code']
+        response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors') && response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Code']
       end
 
       def error_message(response_body)
