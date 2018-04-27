@@ -13,6 +13,7 @@ module YandexDirect
         api_url = client.test ? SANDBOX_BASE_URL : BASE_URL
         @url = "#{api_url}#{service_name}"
         @token = token
+        @method = method
       end
 
       def perform
@@ -20,9 +21,23 @@ module YandexDirect
         response_body = response.parse
 
         raise(YandexDirect::NotEnoughUnitsError) if response_body.key?('error') && response_body['error']['error_code'].to_i == 152
+        raise(YandexDirect::CampaignArchiveError, error_message(response_body)) if error_key(response_body) == 8303
+        raise(YandexDirect::CampaignUnarchiveError, error_message(response_body)) if error_key(response_body) == 8304
+        raise(YandexDirect::ObjectDeleteError, error_message(response_body)) if error_key(response_body) == 8301
+        raise(YandexDirect::ObjectNotFoundError, error_message(response_body)) if error_key(response_body) == 8800
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
 
         Response.new(response_body)
+      end
+
+      private
+
+      def error_key(response_body)
+        response_body['result'][@method.capitalize + 'Results'].present? && response_body['result'][@method.capitalize + 'Results'][0]['Errors'].present? && response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Code']
+      end
+
+      def error_message(response_body)
+        response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Message']
       end
     end
   end
