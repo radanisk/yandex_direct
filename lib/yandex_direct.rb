@@ -2,9 +2,13 @@
 
 require 'http'
 require 'yandex_direct/authorization_error'
+require 'yandex_direct/campaign_archive_error'
+require 'yandex_direct/campaign_unarchive_error'
 require 'yandex_direct/error'
 require 'yandex_direct/not_enough_units_error'
 require 'yandex_direct/blank_data_error'
+require 'yandex_direct/object_delete_error'
+require 'yandex_direct/object_not_found_error'
 require 'yandex_direct/v5/api'
 require 'yandex_direct/v5/request'
 require 'yandex_direct/version'
