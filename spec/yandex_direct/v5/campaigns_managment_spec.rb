@@ -106,8 +106,8 @@ RSpec.describe YandexDirect::V5::Campaigns do
   describe '#unarchive_campaigns' do
     before do
       stub_post('campaigns')
-          .with(body: { method: 'unarchive', params: { SelectionCriteria: { Ids: [34_216_599] } } })
-          .to_return(body: fixture('unarchive_results.json'), headers: { content_type: 'application/json; charset=utf-8', Units: '11/119918/120000' })
+        .with(body: { method: 'unarchive', params: { SelectionCriteria: { Ids: [34_216_599] } } })
+        .to_return(body: fixture('unarchive_results.json'), headers: { content_type: 'application/json; charset=utf-8', Units: '11/119918/120000' })
     end
 
     it 'requests the correct resource' do
@@ -138,7 +138,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
       @client.update_campaigns(Campaigns: [Id: 34_216_599])
       expect(
         a_post('campaigns')
-            .with(body: { method: 'update', params: { Campaigns: [Id: 34_216_599]}})
+            .with(body: { method: 'update', params: { Campaigns: [Id: 34_216_599] } })
       ).to have_been_made
     end
 

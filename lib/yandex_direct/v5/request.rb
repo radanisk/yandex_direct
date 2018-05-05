@@ -33,10 +33,12 @@ module YandexDirect
       private
 
       def error_key(response_body)
+        return if response_body['result'].nil?
         response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors') && response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Code']
       end
 
       def error_message(response_body)
+        return if response_body['result'].nil?
         response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Message']
       end
     end
