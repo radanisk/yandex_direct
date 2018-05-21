@@ -8,6 +8,6 @@ class Response
     return if response['Units'].nil?
 
     @available_units = response['Units'].split('/')[1]
-    @limit_units = response['Units'].split('/')[0]
+    @limit_units = response['Units'].split('/')[2]
   end
 end
