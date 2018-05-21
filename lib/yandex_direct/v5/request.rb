@@ -30,7 +30,7 @@ module YandexDirect
         raise(YandexDirect::CampaignManagmentError, error_message(response_body)) if response_body.key?('result') && response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors')
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
 
-        Response.new(response_body)
+        Response.new(response)
       end
 
       private

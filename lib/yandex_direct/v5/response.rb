@@ -3,11 +3,11 @@
 class Response
   attr_reader :result, :available_units, :limit_units
 
-  def initialize(attrs)
-    @result = attrs['result']
-    return if attrs['Units'].nil?
+  def initialize(response)
+    @result = response.parse['result']
+    return if response['Units'].nil?
 
-    @available_units = attrs['Units'].split('/')[1]
-    @limit_units = attrs['Units'].split('/')[0]
+    @available_units = response['Units'].split('/')[1]
+    @limit_units = response['Units'].split('/')[0]
   end
 end
