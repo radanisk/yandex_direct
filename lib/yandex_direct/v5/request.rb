@@ -27,7 +27,7 @@ module YandexDirect
         raise(YandexDirect::ObjectNotFoundError, error_message(response_body)) if error_key(response_body) == 8800
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
 
-        Response.new(response_body)
+        Response.new(response)
       end
 
       private
