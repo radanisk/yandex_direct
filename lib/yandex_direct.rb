@@ -13,6 +13,7 @@ require 'yandex_direct/object_delete_error'
 require 'yandex_direct/object_not_found_error'
 require 'yandex_direct/v5/api'
 require 'yandex_direct/v5/request'
+require 'yandex_direct/v5/report_request'
 require 'yandex_direct/version'
 
 module YandexDirect
