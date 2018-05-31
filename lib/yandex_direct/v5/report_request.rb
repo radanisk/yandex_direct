@@ -19,18 +19,17 @@ module YandexDirect
                                 skipReportSummary: true,
                                 skipReportHeader: true)
                        .post(@url, json: @payload)
+        return to_array(response) if response.status == 200
 
-        response_body = JSON.parse(response.flush)
         raise(YandexDirect::OfflineReportError, 'Отчет формируется в режиме офлайн') if response.status.in?([201, 202])
+        response_body = JSON.parse(response.flush)
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
-
-        to_json response
       end
 
       private
 
-      def to_json(response)
-        response.flush.strip.split("\n").map do |row|
+      def to_array(response)
+        response.body.to_s.strip.split("\n").map do |row|
           { 'AdId' => row.split("\t")[0].to_i, 'Ctr' => row.split("\t")[1].to_f }
         end
       end
