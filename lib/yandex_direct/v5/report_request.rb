@@ -21,7 +21,7 @@ module YandexDirect
                        .post(@url, json: @payload)
         return to_array(response) if response.status == 200
 
-        raise(YandexDirect::OfflineReportError, 'Отчет формируется в режиме офлайн') if response.status.in?([201, 202])
+        raise(YandexDirect::OfflineReportError, 'Отчет формируется в режиме офлайн') if response.status == 201
         response_body = JSON.parse(response.flush)
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
       end

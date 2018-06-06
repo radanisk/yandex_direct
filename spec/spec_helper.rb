@@ -29,6 +29,14 @@ def stub_post(path)
   stub_request(:post, URI.join(YandexDirect::V5::Request::SANDBOX_BASE_URL, path))
 end
 
+def report_post
+  a_request(:post, URI.join(YandexDirect::V5::ReportRequest::SANDBOX_BASE_URL))
+end
+
+def report_stub_post
+  stub_request(:post, URI.join(YandexDirect::V5::ReportRequest::SANDBOX_BASE_URL))
+end
+
 def fixture(file)
   File.new(File.join(File.expand_path('fixtures', __dir__), file))
 end
