@@ -10,8 +10,8 @@ module YandexDirect
       # Creates campaigns
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/campaigns/add-docpage/
-      def add_campaigns(params)
-        perform_request(self, @token, 'campaigns', 'add', params)
+      def add_campaigns(params, additional_headers = {})
+        perform_request(self, @token, 'campaigns', 'add', params, additional_headers)
       end
 
       # Archives campaigns
