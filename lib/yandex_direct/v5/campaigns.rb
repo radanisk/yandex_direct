@@ -24,8 +24,8 @@ module YandexDirect
       # Returns the parameters of campaigns that match the specified criteria
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/campaigns/get-docpage/
-      def campaigns(params)
-        perform_request(self, @token, 'campaigns', 'get', params)
+      def campaigns(params, additional_headers = {})
+        perform_request(self, @token, 'campaigns', 'get', params, additional_headers)
       end
 
       # Deletes campaigns
