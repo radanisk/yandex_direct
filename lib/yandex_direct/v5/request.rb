@@ -8,16 +8,19 @@ module YandexDirect
       BASE_URL = 'https://api.direct.yandex.com/json/v5/'
       SANDBOX_BASE_URL = 'https://api-sandbox.direct.yandex.com/json/v5/'
 
-      def initialize(client, token, service_name, method, params)
+      attr_reader :additional_headers
+
+      def initialize(client, token, service_name, method, params, additional_headers = {})
         @payload = { method: method, params: params }
         api_url = client.test ? SANDBOX_BASE_URL : BASE_URL
         @url = "#{api_url}#{service_name}"
         @token = token
         @method = method
+        @additional_headers = additional_headers
       end
 
       def perform
-        response = HTTP.auth("Bearer #{@token}").headers('Accept-Language': 'ru').post(@url, json: @payload)
+        response = HTTP.auth("Bearer #{@token}").headers({ 'Accept-Language': 'ru' }.merge(additional_headers)).post(@url, json: @payload)
         response_body = response.parse
 
         raise(YandexDirect::NotEnoughUnitsError) if response_body.key?('error') && response_body['error']['error_code'].to_i == 152

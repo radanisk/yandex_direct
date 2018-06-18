@@ -10,16 +10,16 @@ module YandexDirect
       # Creates keywords
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/keywords/add-docpage/
-      def add_keywords(params)
-        perform_request(self, @token, 'keywords', 'add', params)
+      def add_keywords(params, additional_headers = {})
+        perform_request(self, @token, 'keywords', 'add', params, additional_headers)
       end
 
       # Returns parameters of keywords that match the set criteria: the values of substitution variables, status and
       # state, productivity, statistics for impressions and clicks, and bids and priorities
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/keywords/get-docpage/
-      def keywords(params)
-        perform_request(self, @token, 'keywords', 'get', params)
+      def keywords(params, additional_headers = {})
+        perform_request(self, @token, 'keywords', 'get', params, additional_headers)
       end
     end
   end

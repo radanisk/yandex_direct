@@ -10,15 +10,15 @@ module YandexDirect
       # Creates an ad group
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/adgroups/add-docpage/
-      def add_ad_groups(params)
-        perform_request(self, @token, 'adgroups', 'add', params)
+      def add_ad_groups(params, additional_headers = {})
+        perform_request(self, @token, 'adgroups', 'add', params, additional_headers)
       end
 
       # Returns parameters of groups that match the specified criteria
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/adgroups/get-docpage/
-      def ad_groups(params)
-        perform_request(self, @token, 'adgroups', 'get', params)
+      def ad_groups(params, additional_headers = {})
+        perform_request(self, @token, 'adgroups', 'get', params, additional_headers)
       end
     end
   end
