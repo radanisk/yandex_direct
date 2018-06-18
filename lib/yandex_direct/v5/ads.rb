@@ -24,15 +24,15 @@ module YandexDirect
       # Archives ads
       #
       # @see https://tech.yandex.ru/direct/doc/ref-v5/ads/archive-docpage/
-      def archive_ads(params)
-        perform_request(self, @token, 'ads', 'archive', params)
+      def archive_ads(params, additional_headers = {})
+        perform_request(self, @token, 'ads', 'archive', params, additional_headers)
       end
 
       # Deletes ads
       #
       # @see https://tech.yandex.ru/direct/doc/ref-v5/ads/delete-docpage/
-      def delete_ads(params)
-        perform_request(self, @token, 'ads', 'delete', params)
+      def delete_ads(params, additional_headers = {})
+        perform_request(self, @token, 'ads', 'delete', params, additional_headers)
       end
 
       # Submits ads for review
@@ -45,8 +45,8 @@ module YandexDirect
       # Stops ad displays
       #
       # @see https://tech.yandex.ru/direct/doc/ref-v5/ads/suspend-docpage/
-      def suspend_ads(params)
-        perform_request(self, @token, 'ads', 'suspend', params)
+      def suspend_ads(params, additional_headers = {})
+        perform_request(self, @token, 'ads', 'suspend', params, additional_headers)
       end
     end
   end
