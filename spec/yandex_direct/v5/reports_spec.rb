@@ -20,7 +20,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
                     Values: [34_216_599]
                   }]
                 },
-                FieldNames: %w[AdId Ctr],
+                FieldNames: %w[AdId Ctr Impressions],
                 ReportName: 'test report',
                 ReportType: 'AD_PERFORMANCE_REPORT',
                 DateRangeType: 'AUTO',
@@ -39,7 +39,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
               Values: [34_216_599]
             }]
           },
-          FieldNames: %w[AdId Ctr],
+          FieldNames: %w[AdId Ctr Impressions],
           ReportName: 'test report',
           ReportType: 'AD_PERFORMANCE_REPORT',
           DateRangeType: 'AUTO',
@@ -58,7 +58,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
                     Values: [34_216_599]
                   }]
                 },
-                FieldNames: %w[AdId Ctr],
+                FieldNames: %w[AdId Ctr Impressions],
                 ReportName: 'test report',
                 ReportType: 'AD_PERFORMANCE_REPORT',
                 DateRangeType: 'AUTO',
@@ -67,6 +67,27 @@ RSpec.describe YandexDirect::V5::Campaigns do
                 IncludeDiscount: 'YES'
               } })
         ).to have_been_made
+      end
+      it 'returns full report' do
+        result = @client.report(
+          SelectionCriteria: {
+            Filter: [{
+             Field: 'CampaignId',
+             Operator: 'IN',
+             Values: [34_216_599]
+            }]
+          },
+          FieldNames: %w[AdId Ctr Impressions],
+          ReportName: 'test report',
+          ReportType: 'AD_PERFORMANCE_REPORT',
+          DateRangeType: 'AUTO',
+          Format: 'TSV',
+          IncludeVAT: 'YES',
+          IncludeDiscount: 'YES'
+        )
+        expect(result).to be_a Array
+        expect(result.first).to be_a Hash
+        expect(result.first.keys).to eq(%w[AdId Ctr Impressions])
       end
     end
   end
@@ -83,7 +104,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
                 Values: [34_216_599]
               }]
             },
-            FieldNames: %w[AdId Ctr],
+            FieldNames: %w[AdId Ctr Impressions],
             ReportName: 'test report',
             ReportType: 'AD_PERFORMANCE_REPORT',
             DateRangeType: 'AUTO',
@@ -104,7 +125,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
               Values: [34_216_599]
             }]
           },
-          FieldNames: %w[AdId Ctr],
+          FieldNames: %w[AdId Ctr Impressions],
           ReportName: 'test report',
           ReportType: 'AD_PERFORMANCE_REPORT',
           DateRangeType: 'AUTO',
@@ -128,7 +149,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
                 Values: [34_216_599]
               }]
             },
-            FieldNames: %w[AdId Ctr],
+            FieldNames: %w[AdId Ctr Impressions],
             ReportName: 'test report',
             ReportType: 'AD_PERFORMANCE_REPORT',
             DateRangeType: 'AUTO',
@@ -149,7 +170,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
               Values: [34_216_599]
             }]
           },
-          FieldNames: %w[AdId Ctr],
+          FieldNames: %w[AdId Ctr Impressions],
           ReportName: 'test report',
           ReportType: 'AD_PERFORMANCE_REPORT',
           DateRangeType: 'AUTO',

@@ -15,7 +15,6 @@ module YandexDirect
       def perform
         response = HTTP.auth("Bearer #{@token}")
                        .headers('Accept-Language': 'ru',
-                                skipColumnHeader: true,
                                 skipReportSummary: true,
                                 skipReportHeader: true)
                        .post(@url, json: @payload)
@@ -29,8 +28,14 @@ module YandexDirect
       private
 
       def to_array(response)
-        response.body.to_s.strip.split("\n").map do |row|
-          { 'AdId' => row.split("\t")[0].to_i, 'Ctr' => row.split("\t")[1].to_f }
+        report = response.body.to_s.strip.split("\n")
+        fields = report[0].split("\t")
+        report.delete_at(0)
+
+        report.map do |row|
+          str = {}
+          fields.count.times { |i| str[fields[i]] = row.split("\t")[i] }
+          str
         end
       end
     end
