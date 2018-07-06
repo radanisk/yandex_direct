@@ -30,7 +30,7 @@ module YandexDirect
         raise(YandexDirect::CampaignArchiveError, error_message(response_body)) if error_key(response_body) == 8303
         raise(YandexDirect::CampaignUnarchiveError, error_message(response_body)) if error_key(response_body) == 8304
         raise(YandexDirect::ObjectNotFoundError, error_message(response_body)) if error_key(response_body) == 8800
-        raise(YandexDirect::CampaignManagmentError, error_message(response_body)) if response_body.key?('result') && response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors')
+        raise(YandexDirect::CampaignManagementError, error_message(response_body)) if response_body.key?('result') && response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors')
         raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
 
         Response.new(response)

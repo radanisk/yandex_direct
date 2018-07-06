@@ -99,7 +99,7 @@ RSpec.describe YandexDirect::V5::Campaigns do
     end
 
     it 'generated raise error' do
-      expect { @client.archive_campaigns(SelectionCriteria: { Ids: [34_216_599] }) }.to raise_error(YandexDirect::CampaignManagmentError)
+      expect { @client.archive_campaigns(SelectionCriteria: { Ids: [34_216_599] }) }.to raise_error(YandexDirect::CampaignManagementError)
     end
   end
 end

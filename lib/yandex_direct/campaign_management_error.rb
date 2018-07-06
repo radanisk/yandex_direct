@@ -3,5 +3,5 @@
 require 'yandex_direct/error'
 
 module YandexDirect
-  class CampaignManagmentError < Error; end
+  class CampaignManagementError < Error; end
 end
