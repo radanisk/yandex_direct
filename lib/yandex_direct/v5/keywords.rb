@@ -21,6 +21,13 @@ module YandexDirect
       def keywords(params, additional_headers = {})
         perform_request(self, @token, 'keywords', 'get', params, additional_headers)
       end
+
+      # Deletes keywords and autotargetings
+      #
+      # @see https://tech.yandex.com/direct/doc/ref-v5/keywords/delete-docpage/
+      def delete_keywords(params, additional_headers = {})
+        perform_request(self, @token, 'keywords', 'delete', params, additional_headers)
+      end
     end
   end
 end
