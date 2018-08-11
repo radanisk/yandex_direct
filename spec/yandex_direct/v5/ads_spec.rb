@@ -221,4 +221,28 @@ RSpec.describe YandexDirect::V5::Ads do
       expect(result['SuspendResults'].first['Id']).to eq(34_216_599)
     end
   end
+
+  describe '#update_ads' do
+    before do
+      stub_post('ads')
+        .with(body: { method: 'update', params: { Ads: [{ Id: 34_216_599, TextAd: { Text: 'New test' } }] } })
+        .to_return(body: { result: { UpdateResults: [{ Id: 34_216_599 }] } }.to_json, headers: { content_type: 'application/json; charset=utf-8', Units: '11/119918/120000' })
+    end
+
+    it 'requests the correct resource' do
+      @client.update_ads(Ads: [{ Id: 34_216_599, TextAd: { Text: 'New test' } }])
+      expect(
+        a_post('ads')
+            .with(body: { method: 'update', params: { Ads: [{ Id: 34_216_599, TextAd: { Text: 'New test' } }] } })
+      ).to have_been_made
+    end
+
+    it 'returns the IDs of updated ads' do
+      result = @client.update_ads(Ads: [{ Id: 34_216_599, TextAd: { Text: 'New test' } }])
+      expect(result).to be_a Hash
+      expect(result['UpdateResults']).to be_an Array
+      expect(result['UpdateResults'].first).to be_a Hash
+      expect(result['UpdateResults'].first['Id']).to eq(34_216_599)
+    end
+  end
 end

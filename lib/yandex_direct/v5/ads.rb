@@ -53,7 +53,7 @@ module YandexDirect
       #
       # @see https://tech.yandex.com/direct/doc/ref-v5/ads/update-docpage/
       def update_ads(params, additional_headers = {})
-        perform_request(sefl, @token, 'ads', 'update', params, additional_headers)
+        perform_request(self, @token, 'ads', 'update', params, additional_headers)
       end
     end
   end
