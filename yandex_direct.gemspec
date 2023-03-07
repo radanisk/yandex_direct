@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'yandex_direct/version'
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'http', '~> 2.0'
+  spec.add_dependency 'http', '~> 4.3'
   spec.name          = 'yandex_direct'
   spec.version       = YandexDirect::VERSION
   spec.authors       = ['Aleksandr B. Ivanov']
