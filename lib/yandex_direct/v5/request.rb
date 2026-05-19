@@ -22,30 +22,38 @@ module YandexDirect
       def perform
         response = HTTP.auth("Bearer #{@token}").headers({ 'Accept-Language': 'ru' }.merge(additional_headers)).post(@url, json: @payload)
         response_body = response.parse
+        api_error = response_body['error']
+        operation_errors = yandex_direct_operation_errors(response_body)
+        first_operation_error = operation_errors.first
+        first_operation_error_code = first_operation_error && first_operation_error['Code'].to_i
 
-        raise(YandexDirect::NotEnoughUnitsError) if response_body.key?('error') && response_body['error']['error_code'].to_i == 152
-        raise(YandexDirect::ObjectStatusError, error_message(response_body)) if error_key(response_body) == 8300
-        raise(YandexDirect::ObjectDeleteError, error_message(response_body)) if error_key(response_body) == 8301
-        raise(YandexDirect::StopImpressionsError, error_message(response_body)) if error_key(response_body) == 8302
-        raise(YandexDirect::CampaignArchiveError, error_message(response_body)) if error_key(response_body) == 8303
-        raise(YandexDirect::CampaignUnarchiveError, error_message(response_body)) if error_key(response_body) == 8304
-        raise(YandexDirect::ObjectNotFoundError, error_message(response_body)) if error_key(response_body) == 8800
-        raise(YandexDirect::CampaignManagementError, error_message(response_body)) if response_body.key?('result') && response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors')
-        raise(YandexDirect::Error, "[#{response_body['error']['error_code']}] #{response_body['error']['error_string']}: #{response_body['error']['error_detail']}") if response_body.key?('error')
+        raise(YandexDirect::NotEnoughUnitsError) if api_error && api_error['error_code'].to_i == 152
+        raise(YandexDirect::ObjectStatusError, first_operation_error['Message']) if first_operation_error_code == 8300
+        raise(YandexDirect::ObjectDeleteError, first_operation_error['Message']) if first_operation_error_code == 8301
+        raise(YandexDirect::StopImpressionsError, first_operation_error['Message']) if first_operation_error_code == 8302
+        raise(YandexDirect::CampaignArchiveError, first_operation_error['Message']) if first_operation_error_code == 8303
+        raise(YandexDirect::CampaignUnarchiveError, first_operation_error['Message']) if first_operation_error_code == 8304
+        raise(YandexDirect::ObjectNotFoundError, first_operation_error['Message']) if first_operation_error_code == 8800
+        raise(YandexDirect::CampaignManagementError, first_operation_error['Message']) if operation_errors.any?
+        raise(YandexDirect::Error, "[#{api_error['error_code']}] #{api_error['error_string']}: #{api_error['error_detail']}") if api_error
 
         Response.new(response)
       end
 
       private
 
-      def error_key(response_body)
-        return if response_body['result'].nil?
-        response_body['result'].key?(@method.capitalize + 'Results') && response_body['result'][@method.capitalize + 'Results'][0].key?('Errors') && response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Code']
-      end
+      def yandex_direct_operation_errors(response_body)
+        result = response_body['result']
+        return [] unless result
 
-      def error_message(response_body)
-        return if response_body['result'].nil?
-        response_body['result'][@method.capitalize + 'Results'][0]['Errors'][0]['Message']
+        operation_results = result[@method.capitalize + 'Results']
+        return [] unless operation_results.respond_to?(:[])
+
+        first_operation_result = operation_results[0]
+        return [] unless first_operation_result.respond_to?(:[])
+
+        errors = first_operation_result['Errors']
+        errors.respond_to?(:any?) ? errors : []
       end
     end
   end
